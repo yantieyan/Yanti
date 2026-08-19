@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biografi - Yanti Sugianti</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff6b95;
+            --primary-light: #ffc1e3;
+            --bg-color: #fff0f5;
+            --text-main: #5d4037;
+            --card-bg: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navbar & Hamburger */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+        }
+
+        .navbar-brand {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .menu a:hover::after, .menu a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        /* Main Container & Layout */
+        .container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.12);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-light);
+            object-fit: cover;
+            margin: 0 auto 1.5rem auto;
+            display: block;
+            box-shadow: 0 8px 20px rgba(255, 107, 149, 0.2);
+            transition: var(--transition);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        h1.glitter-text {
+            font-size: 2.2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b95, #ff85a2, #ffa3be);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 4s linear infinite;
+            background-size: 200% auto;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .subtitle {
+            text-align: center;
+            font-weight: 500;
+            color: #8c736a;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.4rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-light);
+            border-radius: 2px;
+        }
+
+        .content-box {
+            background: #fff8fa;
+            padding: 1.8rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary-color);
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: var(--transition);
+        }
+
+        .content-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 149, 0.1);
+        }
+
+        .content-box ul {
+            margin-left: 1.2rem;
+            margin-top: 0.8rem;
+        }
+
+        .content-box li {
+            margin-bottom: 0.6rem;
+        }
+
+        /* Elemen Efek Jatuh (Bunga/Simbol) */
+        .falling {
+            position: fixed;
+            top: -50px;
+            z-index: 999;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* Banner Kutipan Dinamis (Kunang-kunang / Elegan) */
+        .dynamic-quote-banner {
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 600px;
+            padding: 1rem;
+            font-style: italic;
+            color: #b07d92;
+            font-size: 0.95rem;
+            min-height: 40px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar { padding: 1.2rem 5%; }
+            .menu {
+                display: none;
+                flex-direction: column;
+                background: white;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                padding: 1.5rem;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                text-align: center;
+                gap: 1rem;
+            }
+            .menu.active { display: flex; }
+            .hamburger { display: block; }
+            .container { margin: 1.5rem; padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">Yanti Sugianti</div>
+        <div class="hamburger" id="hamburger">☰</div>
+        <ul class="menu" id="menu">
+            <li><a href="#about">Tentang Saya</a></li>
+            <li><a href="#work">Pengalaman</a></li>
+            <li><a href="#skill">Pendidikan & Skill</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content Sections -->
+    <section class="container" id="about">
+        <img src="assets/images/profile.jpeg" alt="Yanti Sugianti" class="profile-img">
+        <h1 class="glitter-text">Yanti Sugianti</h1>
+        <p class="subtitle">Professional Web Designer & Marketing Specialist</p>
+        <p>Halo, saya Yanti Sugianti. Saya adalah seorang profesional yang memadukan keahlian desain digital dengan strategi pemasaran untuk menciptakan solusi bisnis yang inovatif, elegan, dan berorientasi pada hasil.</p>
+    </section>
+
+    <section class="container" id="work">
+        <h2>Pengalaman Kerja</h2>
+        <div class="content-box">
+            <h3>Web Design & Marketing Specialist</h3>
+            <p><strong>PT REVS COLL SHOES MANDIRI</strong></p>
+            <ul>
+                <li><strong>Digital Transformation:</strong> Merevitalisasi arsitektur situs web perusahaan yang meningkatkan <em>User Experience</em> (UX) dan efisiensi navigasi sebesar 40%.</li>
+                <li><strong>Strategic Marketing:</strong> Merancang strategi <em>digital marketing</em> berbasis data yang terukur untuk meningkatkan loyalitas pelanggan dan konversi penjualan.</li>
+                <li><strong>Content Optimization:</strong> Mengelola konten kreatif yang selaras dengan identitas merek, memastikan <em>engagement</em> audiens yang lebih tinggi dan presisi.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="container" id="skill">
+        <h2>Pendidikan & Skill</h2>
+        <div class="content-box">
+            <p><strong>Sarjana Manajemen</strong> - IBI KESATUAN Bogor</p>
+            <p style="margin-top: 0.5rem;"><strong>Keahlian:</strong> Web Design (UI/UX), Digital Marketing Strategy, Brand Management, Data Analytics.</p>
+            <p style="margin-top: 0.5rem;"><strong>Hubungi Saya:</strong> Email: yanti@revscoll.my.id | LinkedIn: yantisugianti</p>
+        </div>
+    </section>
+
+    <!-- Dynamic Quote Banner -->
+    <div id="text-container" class="dynamic-quote-banner"></div>
+
+    <!-- JavaScript Elegan -->
+    <script>
+        // 1. Toggle Menu Hamburger Mobile
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+
+        hamburger.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+
+        // Tutup menu saat link diklik
+        document.querySelectorAll('.menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('active');
+            });
+        });
+
+        // 2. Animasi Scroll Muncul (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.container').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 3. Efek Kelopak Bunga / Elemen Jatuh yang Diperhalus
+        function createFallingElement() {
+            const elements = ['🌸', '💖', '🌼', '💕', '✨'];
+            const el = document.createElement('div');
+            el.className = 'falling';
+            el.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 14 + 12) + 'px';
+            el.style.opacity = Math.random() * 0.5 + 0.5;
+            
+            // Variasi durasi jatuh acak agar terlihat natural
+            const duration = Math.random() * 4 + 4;
+            el.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), duration * 1000);
+        }
+        // Munculkan setiap 1 detik agar tidak terlalu penuh/berat
+        setInterval(createFallingElement, 1000);
+
+        // 4. Rotasi Teks Dinamis yang Elegan
+        const quotes = [
+            "“Inovasi membedakan antara pemimpin dan pengikut.”",
+            "“Desain bukan hanya apa yang terlihat, tapi bagaimana cara kerjanya.”",
+            "“Membangun pengalaman digital yang bermakna dan berkesan.”",
+            "“Kreativitas berpadu dengan strategi untuk hasil yang optimal.”"
+        ];
+
+        const textContainer = document.getElementById("text-container");
+        let quoteIndex = 0;
+
+        function changeQuote() {
+            textContainer.style.opacity = 0;
+            setTimeout(() => {
+                textContainer.innerHTML = quotes[quoteIndex];
+                textContainer.style.opacity = 1;
+                quoteIndex = (quoteIndex + 1) % quotes.length;
+            }, 500);
+        }
+
+        // Jalankan pertama kali lalu ganti setiap 5 detik
+        changeQuote();
+        setInterval(changeQuote, 5000);
+    </script>
+</body>
+</html>
